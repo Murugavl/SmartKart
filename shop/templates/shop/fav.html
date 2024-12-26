@@ -1,0 +1,90 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}
+Favourite | Shop
+{% endblock title %}
+
+{% block content %}
+<section class="bg-light py-4 my-5" style="min-height:600px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h4 class="mb-3">Favourite Items</h4>
+        <hr style="border-color:#b8bfc2;">
+      </div>
+
+      {% if fav %}
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center align-middle" style="background-color: rgb(255, 255, 255); ">
+          <thead style="background-color: antiquewhite;">
+            <tr>
+              <th>Image</th>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in fav %}
+            <tr>
+              <td>
+                <img src="{{ item.product.product_image.url }}" class="cart-item-img" alt="{{ item.product.name }}">
+              </td>
+              <td>
+                <strong>{{ item.product.name }}</strong>
+              </td>
+              <td>
+                ₹{{ item.product.selling_price | stringformat:'d' }}
+              </td>
+              <td>
+                <a href="{% url 'remove_fav' item.id %}" onclick="return confirm('Are you sure you want to remove this item?')" class="btn btn-danger btn-rounded btn-sm">
+                  <i class="fa fa-trash"></i> Remove
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="col-12 text-center">
+        <p class="text-muted">No favourite items found.</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% block extra_css %}
+<style>
+  .cart-item-img {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .btn-rounded {
+    border-radius: 25px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-rounded:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .table thead th {
+    vertical-align: middle;
+  }
+
+  .table tbody td {
+    vertical-align: middle;
+  }
+
+  .text-muted {
+    font-size: 1.1rem;
+    color: #6c757d;
+  }
+</style>
+{% endblock extra_css %}
+{% endblock content %}

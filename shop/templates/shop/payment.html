@@ -1,0 +1,61 @@
+{% extends 'shop/layouts/main.html' %}
+
+{% block title %}
+  Payment | Shop
+{% endblock title %}
+
+{% block content %}
+  <section class="bg-light py-4 my-5" style="min-height:600px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h4 class="mb-4 text-primary font-weight-bold">Review Your Order</h4>
+          <hr style="border-color:#b8bfc2;">
+        </div>
+
+        {% if cart %}
+        <table class="table table-bordered table-striped text-center align-middle" style="background-color: rgb(255, 255, 255); ">
+          <thead style="background-color: antiquewhite;">
+                <tr>
+                    <th>Image</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                <tr class="text-center">
+                    <td><img src="{{item.product.product_image.url}}" class="cart-item-img" alt="{{item.product.name}}" style="max-width: 80px; height: auto;"></td>
+                    <td>{{item.product.name}}</td>
+                    <td>Rs.{{item.product.selling_price | stringformat:'d'}}</td>
+                    <td>{{item.product_qty}}</td>
+                    <td>Rs.{{item.total_cost | stringformat:'d'}}</td>
+                </tr>
+                {% endfor %}
+                <tr class="table-break" style="background-color: #ffffff; --bs-table-accent-bg: white;">
+                  <td colspan="6" class="py-3" style="border: none; background-color: #ffffff;"></td>
+                </tr>
+                <tr class="table-info">
+                    <td colspan="4" style="text-align: left;"><b>Total Amount</b></td>
+                    <th class="text-center">Rs.{{ total_cost | stringformat:'d' }}</th>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="text-center mt-4">
+            <h5>Proceed to Payment</h5>
+            <a href="{% url 'make_payment' %}" class="btn btn-success btn-lg btn-rounded">
+                <i class="fa fa-credit-card"></i> Pay Now
+            </a>
+        </div>
+
+        {% else %}
+        <p class="text-center">Your cart is empty. Please add items to your cart before checking out.</p>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}

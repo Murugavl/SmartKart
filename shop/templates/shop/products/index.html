@@ -1,0 +1,90 @@
+{% extends 'shop/layouts/main.html' %}
+
+{% block title %}
+  Shop | Online Shopping
+{% endblock title %}
+
+{% block content %}
+<section class="bg-light py-4 my-5" style="min-height:600px;">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-12">
+        <h4 class="mb-3">{{ category_name }} Products</h4>
+        <hr style="border-color:#8dacba;">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item active">{{ category_name }} Collections</li>
+          </ol>
+        </nav>
+      </div>
+      {% for item in products %}
+      <div class="col-md-4 col-lg-3">
+        <div class="card product-card">
+          <div class="card-img-wrapper">
+            <img src="{{ item.product_image.url }}" class="card-img-top" alt="{{ item.name }}" loading="lazy">
+          </div>
+          <a href="{% url 'product_details' category_name item.name %}">
+          <div class="card-body">
+            <h5 class="card-title text-primary">{{ item.name }}</h5>
+            <p class="card-text">
+              <span class="float-start old_price"><s>Rs.{{ item.original_price | stringformat:'d' }}</s></span>
+              <span class="float-end new_price">Rs.{{ item.selling_price | stringformat:'d' }}</span>
+            </p>
+          </div>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% block extra_css %}
+<style>
+    .product-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .card-img-wrapper {
+        width: 100%;
+        height: 300px;
+        overflow: hidden;
+    }
+
+    .card-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
+
+    .card:hover {
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .row.gy-4 {
+        gap: 1rem 0;
+    }
+</style>
+{% endblock extra_css %}
+{% endblock content %}

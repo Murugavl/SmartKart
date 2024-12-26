@@ -1,0 +1,29 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}
+  Login | Shop
+{% endblock title %}
+{% block content %}
+  <div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="container" style="max-width: 500px; background: #f8f9fa; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h4 class="mb-3">User Login</h4>
+          <hr style="border-color:#b8bfc2;">
+          {% include 'shop/inc/message.html' %}
+        </div>
+      </div>
+      <form method="post" action="">
+        {% csrf_token %}
+        <div class="mb-4">
+          <label for="username" class="form-label">User Name</label>
+          <input type="text" name="username" id="username" class="form-control" placeholder="Enter User Name">
+        </div>
+        <div class="mb-4">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password">
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

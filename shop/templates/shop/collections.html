@@ -1,0 +1,73 @@
+{% extends 'shop/layouts/main.html' %}
+
+{% block title %}
+Collections | Shop
+{% endblock title %}
+
+{% block content %}
+<section class="bg-light py-4 my-5" style="min-height:600px;">
+  <div class="container">
+    <div class="row flex justify-content-center">
+      <div class="col-12">
+        <h4 class="mb-3">Categories</h4>
+        <hr style="border-color:#b8bfc2;">
+
+      </div>
+      {% for item in catagory %}
+      <div class="col-md-4 col-lg-3">
+        <div class="card my-3 h-100">
+          <div class="image-container">
+            <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
+          </div>
+          <a href="{% url 'collections' item.name %}">
+            <div class="card-body">
+              <h5 class="card-title text-primary">{{ item.name }}</h5>
+              <p class="card-text">{{ item.description }}</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% block extra_css %}
+<style>
+  .image-container {
+    position: relative;
+    width: 100%;
+    padding-top: 75%; 
+    overflow: hidden;
+  }
+
+  .image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card {
+    border: 1px solid #ddd;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    margin-bottom: 30px; /* Adds vertical spacing between cards */
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .row.g-4 > * {
+    margin-bottom: 1.5rem !important;
+  }
+
+  .row {
+    gap: 2rem; 
+  }
+</style>
+{% endblock extra_css %}
+{% endblock content %}

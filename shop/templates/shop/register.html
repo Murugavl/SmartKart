@@ -1,0 +1,50 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}
+  Registration | Shop
+{% endblock title %}
+{% block content %}
+<div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+  <div class="container" style="max-width: 500px; background: #f8f9fa; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h4 class="mb-3">New User Registration</h4>
+        <hr style="border-color:#b8bfc2;">
+        {% include 'shop/inc/message.html' %}
+      </div>
+    </div>
+    <form method="post" action="">
+      {% csrf_token %}
+      <div class="mb-4">
+        <label for="username" class="form-label">User Name</label>
+        {{ form.username }}
+        {% if form.errors.username %}
+          <label class="text-danger d-block">{{ form.errors.username }}</label>
+        {% endif %}
+      </div>
+      <div class="mb-4">
+        <label for="email" class="form-label">User Email</label>
+        {{ form.email }}
+        {% if form.errors.email %}
+          <label class="text-danger d-block">{{ form.errors.email }}</label>
+        {% endif %}
+      </div>
+      <div class="mb-4">
+        <label for="password1" class="form-label">Password</label>
+        {{ form.password1 }}
+        {% if form.errors.password1 %}
+          <label class="text-danger d-block">{{ form.errors.password1 }}</label>
+        {% endif %}
+      </div>
+      <div class="mb-4">
+        <label for="password2" class="form-label">Confirm Password</label>
+        {{ form.password2 }}
+        {% if form.errors.password2 %}
+          <label class="text-danger d-block">{{ form.errors.password2 }}</label>
+        {% endif %}
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Register</button>
+    </form>
+    <p class="my-3 text-center">Already a user? <a href="{% url 'login' %}">Login Now</a></p>
+  </div>
+</div>
+{% endblock content %}
